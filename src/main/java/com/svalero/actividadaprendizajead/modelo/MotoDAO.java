@@ -118,6 +118,24 @@ public class MotoDAO {
     }
 
 
+    public void modificarMoto(Moto motoAntigua, Moto motoNueva) throws SQLException {
 
+        String sql = "UPDATE motos SET matricula = ?, marca = ?, modelo = ?, tipo = ? WHERE matricula = ?";
+        // TODO establecer matricula como pk también en bd
+
+        PreparedStatement sentencia = conexion.prepareStatement(sql);
+
+        // Datos moto nueva
+        sentencia.setString(1, motoNueva.getMatricula());
+        sentencia.setString(2, motoNueva.getMarca());
+        sentencia.setString(3, motoNueva.getModelo());
+        sentencia.setString(4, motoNueva.getTipo());
+
+        // Datos moto antigüa
+        sentencia.setString(5, motoAntigua.getMatricula());
+
+        sentencia.executeUpdate();
+
+    }
 
 }

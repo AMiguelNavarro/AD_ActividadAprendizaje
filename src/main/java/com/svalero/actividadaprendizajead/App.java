@@ -26,6 +26,7 @@ public class App extends Application {
         VBox vbox = loader.load();
 
         controlador.cargarDatos();
+        controlador.modoEdicion(false);
 
         Scene scene = new Scene(vbox);
         stage.setScene(scene);

@@ -41,4 +41,19 @@ public class Alertas {
 
     }
 
+
+    /**
+     * Muestra un mensaje de información en una alerta
+     * @param titulo
+     * @param mensajeInformativo
+     */
+    public static void mostrarInformacion(String titulo, String mensajeInformativo) {
+
+        Alert alerta = new Alert(Alert.AlertType.INFORMATION);
+        alerta.setTitle(titulo);
+        alerta.setContentText(mensajeInformativo);
+        alerta.show();
+
+    }
+
 }
