@@ -80,14 +80,15 @@ public class AppController {
             Alertas.mostrarError("Error Modelo", "El campo modelo no puede estar vacío");
             return;
         }
-//        if (tipo.isEmpty() || tipo == null) {
-//            Alertas.mostrarError("Error Tipo", "El campo tipo no puede estar vacío");
-//            return;
-//        }
+        if (tipo.isEmpty() || tipo == null || tipo == "<Seleccionar tipo>") {
+            Alertas.mostrarError("Error Tipo", "El campo tipo no puede estar vacío");
+            return;
+        }
 
         Moto moto = new Moto(matricula, marca, modelo, tipo);
         motoDAO.guardarMoto(moto);
         lbConfirmacion.setText("Coche guardado con éxito");
+        cargarDatos();
 
     }
 
@@ -111,6 +112,25 @@ public class AppController {
 
     }
 
+    @FXML
+    public void seleccionarMoto(Event event) {
+
+        motoSeleccionada = lvMotos.getSelectionModel().getSelectedItem();
+        cargarMoto(motoSeleccionada);
+        lbConfirmacion.setText("");
+
+    }
+
+
+    public void cargarMoto(Moto moto) {
+
+        tfMatricula.setText(moto.getMatricula());
+        tfMarca.setText(moto.getMarca());
+        tfModelo.setText(moto.getModelo());
+        cbTipo.setValue(moto.getTipo());
+
+    }
+
 
     public void cargarDatos() {
 
@@ -121,8 +141,14 @@ public class AppController {
             ArrayList<Moto> listaMotos = motoDAO.getListaMotos();
             lvMotos.setItems(FXCollections.observableList(listaMotos));
 
-            String[] tipoMoto = new String[] {"DEPORTIVA", "TRAIL", "NAKED", "SPORT-TURISMO"};
+            String[] tipoMoto = new String[] {"<Seleccionar tipo>", "DEPORTIVA", "TRAIL", "NAKED", "SPORT-TURISMO", "SCOOTER"};
             cbTipo.setItems(FXCollections.observableArrayList(tipoMoto));
+
+            tfMatricula.setText("");
+            tfMarca.setText("");
+            tfModelo.setText("");
+            cbTipo.setValue("<Seleccionar tipo>");
+
 
         } catch (SQLException throwables) {
 
@@ -131,5 +157,7 @@ public class AppController {
         }
 
     }
+
+    // TODO metodo para seleccionar un coche e implementar los métodos de eliminar y modificar
 
 }

@@ -28,7 +28,7 @@
             <Button fx:id="btEliminar" layoutX="309.0" layoutY="227.0" mnemonicParsing="false" onAction="#eliminarMoto" text="Eliminar" />
             <Button fx:id="btModificar" layoutX="220.0" layoutY="227.0" mnemonicParsing="false" onAction="#modificarMoto" text="Modificar" />
             <ComboBox fx:id="cbTipo" layoutX="127.0" layoutY="155.0" prefHeight="27.0" prefWidth="167.0" />
-            <ListView fx:id="lvMotos" layoutX="414.0" layoutY="27.0" prefHeight="317.0" prefWidth="200.0" />
+            <ListView fx:id="lvMotos" layoutX="414.0" layoutY="27.0" onMouseClicked="#seleccionarMoto" prefHeight="317.0" prefWidth="200.0" />
             <Button fx:id="btCancelar" layoutX="137.0" layoutY="262.0" mnemonicParsing="false" onAction="#cancelar" text="Cancelar" />
             <Label fx:id="lbConfirmacion" layoutX="14.0" layoutY="345.0" prefHeight="18.0" prefWidth="352.0" />
       </children>

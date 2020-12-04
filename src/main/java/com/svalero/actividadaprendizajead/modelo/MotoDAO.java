@@ -46,9 +46,11 @@ public class MotoDAO {
     }
 
 
-
-
-
+    /**
+     * Devuelve una lista con las motos de la base de datos
+     * @return lista de motos
+     * @throws SQLException
+     */
     public ArrayList <Moto> getListaMotos() throws SQLException {
 
         ArrayList <Moto> listaMotos = new ArrayList<>();
