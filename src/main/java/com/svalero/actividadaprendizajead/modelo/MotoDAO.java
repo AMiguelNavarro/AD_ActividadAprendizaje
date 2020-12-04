@@ -96,4 +96,28 @@ public class MotoDAO {
         sentencia.executeUpdate();
     }
 
+
+    /**
+     * Método que elimina la moto de la base de datos
+     * @param moto
+     * @throws SQLException
+     */
+    public void eliminarMoto(Moto moto) throws SQLException {
+
+        String sql = "DELETE FROM motos WHERE matricula = ? AND marca = ? AND modelo = ? AND tipo = ?";
+
+        PreparedStatement sentencia = conexion.prepareStatement(sql);
+
+        sentencia.setString(1, moto.getMatricula());
+        sentencia.setString(2, moto.getMarca());
+        sentencia.setString(3, moto.getModelo());
+        sentencia.setString(4, moto.getTipo());
+
+        sentencia.executeUpdate();
+
+    }
+
+
+
+
 }

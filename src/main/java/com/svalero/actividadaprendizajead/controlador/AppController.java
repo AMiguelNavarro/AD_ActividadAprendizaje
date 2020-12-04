@@ -95,10 +95,42 @@ public class AppController {
     @FXML
     public void modificarMoto(Event event) {
 
+
+
     }
 
+
+    /**
+     * Elimina la moto seleccionada de la base de datos. Muestra mensaje de confirmación antes de ello
+     * @param event
+     */
     @FXML
     public void eliminarMoto(Event event) {
+
+        Moto motoAEliminar = lvMotos.getSelectionModel().getSelectedItem();
+
+        if (motoAEliminar == null) {
+            lbConfirmacion.setText("No has seleccionado ningún coche");
+            return;
+        }
+
+        try {
+
+
+            // Si el boton pulsado en la alerta es cancelar, vuelve y no elimina la moto
+            if (Alertas.mostrarConfirmación().get().getButtonData() == ButtonBar.ButtonData.CANCEL_CLOSE) {
+                return;
+            }
+
+            motoDAO.eliminarMoto(motoAEliminar);
+            lbConfirmacion.setText("Moto eliminada con éxito");
+            cargarDatos();
+
+        } catch (SQLException throwables) {
+
+            Alertas.mostrarError("Error", "Error al eliminar la moto de la base de datos");
+
+        }
 
     }
 
@@ -112,8 +144,13 @@ public class AppController {
 
     }
 
+
+    /**
+     * Selecciona la moto del List View
+     * @param event
+     */
     @FXML
-    public void seleccionarMoto(Event event) {
+    public void getMotoListView(Event event) {
 
         motoSeleccionada = lvMotos.getSelectionModel().getSelectedItem();
         cargarMoto(motoSeleccionada);
@@ -122,6 +159,11 @@ public class AppController {
     }
 
 
+    /**
+     * Carga los datos de una moto (Se usa con el método Seleccionar moto para cargar los datos
+     * la moto seleccionada en el List View)
+     * @param moto
+     */
     public void cargarMoto(Moto moto) {
 
         tfMatricula.setText(moto.getMatricula());
@@ -158,6 +200,6 @@ public class AppController {
 
     }
 
-    // TODO metodo para seleccionar un coche e implementar los métodos de eliminar y modificar
+
 
 }

@@ -1,6 +1,9 @@
 package com.svalero.actividadaprendizajead.utilidades;
 
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+
+import java.util.Optional;
 
 public class Alertas {
 
@@ -16,6 +19,25 @@ public class Alertas {
         alerta.setTitle(tituloError);
         alerta.setContentText(mensajeError);
         alerta.show();
+
+    }
+
+
+    /**
+     * Muestra un mensaje de confirmación, en este caso no paso titulo y mensaje por parámetros ya que siempre
+     * va a ser una pregunta al usuario de si está seguro de ello
+     *
+     * Devuelve lo que el usuario responde al saltarle la alerta
+     * @return respuesta
+     */
+    public static Optional<ButtonType> mostrarConfirmación() {
+
+        Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
+        alerta.setTitle("Confirmación");
+        alerta.setContentText("¿Estás seguro?");
+        Optional<ButtonType> respuesta = alerta.showAndWait();
+
+        return respuesta;
 
     }
 
