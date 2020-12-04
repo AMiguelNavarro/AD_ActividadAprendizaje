@@ -1,13 +1,16 @@
-package com.svalero.actividadaprendizajead;
+package com.svalero.actividadaprendizajead.controlador;
 
-import com.svalero.actividadaprendizajead.beans.Moto;
+import com.svalero.actividadaprendizajead.clases.Moto;
+import com.svalero.actividadaprendizajead.modelo.MotoDAO;
 import com.svalero.actividadaprendizajead.utilidades.Alertas;
+import javafx.collections.FXCollections;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class AppController {
 
@@ -105,6 +108,27 @@ public class AppController {
 
     @FXML
     public void exportar(Event event) {
+
+    }
+
+
+    public void cargarDatos() {
+
+        lvMotos.getItems().clear();
+
+        try {
+
+            ArrayList<Moto> listaMotos = motoDAO.getListaMotos();
+            lvMotos.setItems(FXCollections.observableList(listaMotos));
+
+            String[] tipoMoto = new String[] {"DEPORTIVA", "TRAIL", "NAKED", "SPORT-TURISMO"};
+            cbTipo.setItems(FXCollections.observableArrayList(tipoMoto));
+
+        } catch (SQLException throwables) {
+
+            Alertas.mostrarError("Error Conexión", "Error al cargar los datos de la base de datos");
+
+        }
 
     }
 

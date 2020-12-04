@@ -1,5 +1,6 @@
 package com.svalero.actividadaprendizajead;
 
+import com.svalero.actividadaprendizajead.controlador.AppController;
 import com.svalero.actividadaprendizajead.utilidades.R;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -24,7 +25,7 @@ public class App extends Application {
 
         VBox vbox = loader.load();
 
-        // TODO cargar los datos del controlador
+        controlador.cargarDatos();
 
         Scene scene = new Scene(vbox);
         stage.setScene(scene);

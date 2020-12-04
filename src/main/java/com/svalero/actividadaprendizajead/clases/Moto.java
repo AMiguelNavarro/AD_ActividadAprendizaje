@@ -1,4 +1,4 @@
-package com.svalero.actividadaprendizajead.beans;
+package com.svalero.actividadaprendizajead.clases;
 
 public class Moto {
 
@@ -41,4 +41,14 @@ public class Moto {
     public String getTipo() {return tipo;}
 
     public void setTipo(String tipo) {this.tipo = tipo;}
+
+
+    /**
+     * Para que al mostrar los datos en el list view no ponga la ruta
+     * @return
+     */
+    @Override
+    public String toString() {
+        return marca + " " + modelo;
+    }
 }

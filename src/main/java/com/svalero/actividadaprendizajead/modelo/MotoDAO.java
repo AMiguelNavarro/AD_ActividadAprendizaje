@@ -1,13 +1,11 @@
-package com.svalero.actividadaprendizajead;
+package com.svalero.actividadaprendizajead.modelo;
 
-import com.svalero.actividadaprendizajead.beans.Moto;
+import com.svalero.actividadaprendizajead.clases.Moto;
 import com.svalero.actividadaprendizajead.utilidades.R;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.Properties;
 
 public class MotoDAO {
@@ -45,6 +43,35 @@ public class MotoDAO {
 
         conexion.close();
 
+    }
+
+
+
+
+
+    public ArrayList <Moto> getListaMotos() throws SQLException {
+
+        ArrayList <Moto> listaMotos = new ArrayList<>();
+
+        String sql  = "SELECT * FROM motos";
+
+        PreparedStatement sentencia = conexion.prepareStatement(sql);
+        ResultSet resultado = sentencia.executeQuery();
+
+        while (resultado.next()) {
+
+            Moto moto = new Moto();
+            /* Se pone 1 mas ya que el primer campo de la base de datos es el ID */
+            moto.setMatricula(resultado.getString(2));
+            moto.setMarca(resultado.getString(3));
+            moto.setModelo(resultado.getString(4));
+            moto.setTipo(resultado.getString(5));
+
+            listaMotos.add(moto);
+
+        }
+
+        return listaMotos;
     }
 
 
