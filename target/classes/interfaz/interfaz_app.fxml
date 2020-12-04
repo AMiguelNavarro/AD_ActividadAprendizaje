@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+  <children>
+    <MenuBar VBox.vgrow="NEVER">
+      <menus>
+        <Menu mnemonicParsing="false" text="Archivo">
+          <items>
+            <MenuItem fx:id="miExportar" mnemonicParsing="false" onAction="#exportar" text="Exportar" />
+          </items>
+        </Menu>
+      </menus>
+    </MenuBar>
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+      <children>
+            <Label layoutX="35.0" layoutY="39.0" text="Matricula" />
+            <Label layoutX="35.0" layoutY="76.0" text="Marca" />
+            <Label layoutX="35.0" layoutY="118.0" text="Modelo" />
+            <Label layoutX="35.0" layoutY="160.0" text="Tipo" />
+            <TextField fx:id="tfMatricula" layoutX="127.0" layoutY="34.0" />
+            <TextField fx:id="tfMarca" layoutX="127.0" layoutY="71.0" />
+            <TextField fx:id="tfModelo" layoutX="127.0" layoutY="113.0" />
+            <Button fx:id="btNuevo" layoutX="68.0" layoutY="226.0" mnemonicParsing="false" onAction="#nuevaMoto" text="Nuevo" />
+            <Button fx:id="btGuardar" layoutX="138.0" layoutY="226.0" mnemonicParsing="false" onAction="#guardarMoto" text="Guardar" />
+            <Button fx:id="btEliminar" layoutX="309.0" layoutY="227.0" mnemonicParsing="false" onAction="#eliminarMoto" text="Eliminar" />
+            <Button fx:id="btModificar" layoutX="220.0" layoutY="227.0" mnemonicParsing="false" onAction="#modificarMoto" text="Modificar" />
+            <ComboBox fx:id="cbTipo" layoutX="127.0" layoutY="155.0" prefHeight="27.0" prefWidth="167.0" />
+            <ListView fx:id="lvMotos" layoutX="414.0" layoutY="27.0" prefHeight="317.0" prefWidth="200.0" />
+            <Button fx:id="btCancelar" layoutX="137.0" layoutY="262.0" mnemonicParsing="false" onAction="#cancelar" text="Cancelar" />
+            <Label fx:id="lbConfirmacion" layoutX="14.0" layoutY="345.0" prefHeight="18.0" prefWidth="352.0" />
+      </children>
+    </AnchorPane>
+  </children>
+</VBox>

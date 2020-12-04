@@ -1,0 +1,5 @@
+com\svalero\actividadaprendizajead\AppController.class
+com\svalero\actividadaprendizajead\App.class
+com\svalero\actividadaprendizajead\MotoDAO.class
+com\svalero\actividadaprendizajead\beans\Moto.class
+com\svalero\actividadaprendizajead\utilidades\R.class
