@@ -15,10 +15,10 @@ import java.util.ArrayList;
 public class AppController {
 
     public TextField tfMatricula, tfMarca, tfModelo;
-    public ComboBox<String> cbTipo;
+    public ComboBox<String> cbTipo, cbTipoBuscar;
     public ListView<Moto> lvMotos;
     public Label lbConfirmacion;
-    public Button btNuevo, btGuardar, btModificar, btEliminar, btCancelar;
+    public Button btNuevo, btGuardar, btModificar, btEliminar, btCancelar, btBuscar;
 
     private MotoDAO motoDAO;
     private Moto motoSeleccionada;
@@ -206,7 +206,7 @@ public class AppController {
 
     @FXML
     public void exportar(Event event) {
-
+        // TODO implementar la exportación de datos
     }
 
 
@@ -221,6 +221,12 @@ public class AppController {
         cargarMoto(motoSeleccionada);
         lbConfirmacion.setText("");
 
+    }
+
+
+    @FXML
+    public void buscarTipo(Event event) {
+        // TODO implementar busqueda por tipo de moto y cargar en el lvMotos
     }
 
 
