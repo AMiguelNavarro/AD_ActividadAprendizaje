@@ -22,7 +22,7 @@ public class R {
      * @return -> devuelve el que se le diga de la carpeta configurations
      */
     public static InputStream getProperties(String name){
-        return Thread.currentThread().getContextClassLoader().getResourceAsStream("configuration" + File.separator+ name);
+        return Thread.currentThread().getContextClassLoader().getResourceAsStream("configuracion" + File.separator+ name);
     }
 
 }

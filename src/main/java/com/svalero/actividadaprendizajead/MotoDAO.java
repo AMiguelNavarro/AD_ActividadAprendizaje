@@ -1,10 +1,12 @@
 package com.svalero.actividadaprendizajead;
 
+import com.svalero.actividadaprendizajead.beans.Moto;
 import com.svalero.actividadaprendizajead.utilidades.R;
 
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Properties;
 
@@ -22,7 +24,7 @@ public class MotoDAO {
     public void conectar() throws IOException, ClassNotFoundException, SQLException {
 
         Properties configuracion = new Properties();
-        configuracion.load(R.getProperties("base_de_datos.properties"));
+        configuracion.load(R.getProperties("bd.properties"));
 
         String host = configuracion.getProperty("host");
         String port = configuracion.getProperty("port");
@@ -43,6 +45,26 @@ public class MotoDAO {
 
         conexion.close();
 
+    }
+
+
+    /**
+     * Guarda la moto en la base de datos
+     * @param moto
+     * @throws SQLException
+     */
+    public void guardarMoto(Moto moto) throws SQLException {
+
+        String sql = "INSERT INTO motos (matricula, marca, modelo, tipo) VALUES (?,?,?,?)";
+
+        PreparedStatement sentencia = conexion.prepareStatement(sql);
+
+        sentencia.setString(1, moto.getMatricula());
+        sentencia.setString(2, moto.getMarca());
+        sentencia.setString(3, moto.getModelo());
+        sentencia.setString(4, moto.getTipo());
+
+        sentencia.executeUpdate();
     }
 
 }
