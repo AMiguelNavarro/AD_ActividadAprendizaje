@@ -139,7 +139,10 @@ public class MotoDAO {
     }
 
 
-
+    /**
+     * Elimina la base de datos y resetea el autoincremento del id
+     * @throws SQLException
+     */
     public void eliminarBaseDatos() throws SQLException {
 
         // Usar truncate para que se reinicide el id auto incremental
@@ -147,6 +150,35 @@ public class MotoDAO {
 
         PreparedStatement sentencia = conexion.prepareStatement(sql);
         sentencia.executeUpdate();
+
+    }
+
+
+
+    public ArrayList<Moto> getListaMotosPorTipo(String tipo) throws SQLException {
+
+        String sql = "SELECT * FROM motos WHERE tipo = ?";
+        ArrayList <Moto> listaMotos = new ArrayList<>();
+
+        PreparedStatement sentencia = conexion.prepareStatement(sql);
+        sentencia.setString(1, tipo);
+
+        ResultSet resultado = sentencia.executeQuery();
+
+        while (resultado.next()) {
+
+            Moto moto = new Moto();
+
+            moto.setMatricula(resultado.getString(2));
+            moto.setMarca(resultado.getString(3));
+            moto.setModelo(resultado.getString(4));
+            moto.setTipo(resultado.getString(5));
+
+            listaMotos.add(moto);
+
+        }
+
+        return listaMotos;
 
     }
 

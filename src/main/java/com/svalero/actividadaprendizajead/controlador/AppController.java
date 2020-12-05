@@ -23,7 +23,6 @@ public class AppController {
     public TextField tfMatricula, tfMarca, tfModelo;
     public ComboBox<String> cbTipo, cbTipoBuscar;
     public ListView<Moto> lvMotos;
-    public Label lbConfirmacion;
     public Button btNuevo, btGuardar, btModificar, btEliminar, btCancelar, btBuscar, btEliminarBD;
 
     private MotoDAO motoDAO;
@@ -114,15 +113,15 @@ public class AppController {
             switch (accion) {
 
                 case NUEVO:
+
                     motoDAO.guardarMoto(moto);
-                    lbConfirmacion.setText("moto guardada con éxito");
                     Alertas.mostrarInformacion("Guardado!", "La moto se ha guardado con éxito");
                     modoEdicion(false);
                     break;
 
                 case MODIFICAR:
+
                     motoDAO.modificarMoto(motoSeleccionada, moto);
-                    lbConfirmacion.setText("Moto modificada con éxito");
                     Alertas.mostrarInformacion("Modificado!", "La moto se ha modificado con éxito");
                     modoEdicion(false);
                     break;
@@ -171,7 +170,7 @@ public class AppController {
         Moto motoAEliminar = lvMotos.getSelectionModel().getSelectedItem();
 
         if (motoAEliminar == null) {
-            lbConfirmacion.setText("No has seleccionado ninguna moto");
+            Alertas.mostrarError("Error", "No has seleccionado ningunas moto");
             return;
         }
 
@@ -260,14 +259,46 @@ public class AppController {
 
         motoSeleccionada = lvMotos.getSelectionModel().getSelectedItem();
         cargarMoto(motoSeleccionada);
-        lbConfirmacion.setText("");
 
     }
 
 
     @FXML
     public void buscarTipo(Event event) {
-        // TODO implementar busqueda por tipo de moto y cargar en el lvMotos
+
+        lvMotos.getItems().clear();
+
+        modoEdicion(false);
+
+        try {
+
+            String tipo = cbTipoBuscar.getSelectionModel().getSelectedItem();
+
+            if (tipo == null || tipo == "<Seleccionar tipo>") {
+
+                Alertas.mostrarError("Error" , "Debes seleccionar un tipo de moto");
+                return;
+
+            }
+
+            ArrayList<Moto> listaMotos = motoDAO.getListaMotosPorTipo(tipo);
+
+            if (listaMotos.isEmpty()) {
+
+                Alertas.mostrarInformacion("Lo sentimos!", "No hay ningúna moto de tipo " + tipo + " en la base de datos");
+                return;
+
+            }
+
+            lvMotos.setItems(FXCollections.observableList(listaMotos));
+
+        } catch (SQLException throwables) {
+
+            Alertas.mostrarError("Error", "Erro al filtrar por tipo de moto en la base de datos");
+
+        }
+
+
     }
 
 
@@ -328,6 +359,7 @@ public class AppController {
 
             String[] tipoMoto = new String[] {"<Seleccionar tipo>", "DEPORTIVA", "TRAIL", "NAKED", "SPORT-TURISMO", "SCOOTER"};
             cbTipo.setItems(FXCollections.observableArrayList(tipoMoto));
+            cbTipoBuscar.setItems(FXCollections.observableArrayList(tipoMoto));
 
             tfMatricula.setText("");
             tfMarca.setText("");
