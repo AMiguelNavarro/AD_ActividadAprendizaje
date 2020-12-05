@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="232.0" prefWidth="338.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane prefHeight="419.0" prefWidth="600.0">
+         <children>
+            <Button fx:id="btIniciarSesion" layoutX="79.0" layoutY="98.0" mnemonicParsing="false" onAction="#iniciarSesion" prefHeight="26.0" prefWidth="179.0" text="Iniciar Sesión" />
+            <Button fx:id="btRegistrarse" layoutX="81.0" layoutY="157.0" mnemonicParsing="false" onAction="#registrarse" prefHeight="26.0" prefWidth="179.0" text="Registrarse" />
+            <Label layoutX="77.0" layoutY="25.0" text="Trabajo final 1ªEV Acceso a Datos" />
+            <Label layoutX="105.0" layoutY="43.0" text="Alberto Miguel Navarro" />
+         </children>
+      </AnchorPane>
+   </children>
+</VBox>

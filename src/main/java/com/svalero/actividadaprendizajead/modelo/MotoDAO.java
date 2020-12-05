@@ -138,4 +138,16 @@ public class MotoDAO {
 
     }
 
+
+
+    public void eliminarBaseDatos() throws SQLException {
+
+        // Usar truncate para que se reinicide el id auto incremental
+        String sql = "TRUNCATE motos";
+
+        PreparedStatement sentencia = conexion.prepareStatement(sql);
+        sentencia.executeUpdate();
+
+    }
+
 }

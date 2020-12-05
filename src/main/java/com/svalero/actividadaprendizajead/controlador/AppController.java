@@ -8,6 +8,12 @@ import javafx.collections.FXCollections;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.stage.FileChooser;
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVPrinter;
+
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -18,7 +24,7 @@ public class AppController {
     public ComboBox<String> cbTipo, cbTipoBuscar;
     public ListView<Moto> lvMotos;
     public Label lbConfirmacion;
-    public Button btNuevo, btGuardar, btModificar, btEliminar, btCancelar, btBuscar;
+    public Button btNuevo, btGuardar, btModificar, btEliminar, btCancelar, btBuscar, btEliminarBD;
 
     private MotoDAO motoDAO;
     private Moto motoSeleccionada;
@@ -178,7 +184,7 @@ public class AppController {
             }
 
             motoDAO.eliminarMoto(motoAEliminar);
-            lbConfirmacion.setText("Moto eliminada con éxito");
+            Alertas.mostrarInformacion("Eliminada!", "Moto eliminada con éxito");
             cargarDatos();
 
         } catch (SQLException throwables) {
@@ -204,9 +210,44 @@ public class AppController {
 
     }
 
+
+    /**
+     * Exporta los datos de la base de datos a un archivo CSV
+     * @param event
+     */
     @FXML
     public void exportar(Event event) {
-        // TODO implementar la exportación de datos
+
+        try {
+
+            FileChooser fileChooser = new FileChooser();
+            File fichero = fileChooser.showSaveDialog(null);
+
+            //CSVPrinter requiere de un FileWriter
+            FileWriter fileWriter = new FileWriter(fichero);
+            CSVPrinter printer = new CSVPrinter(fileWriter, CSVFormat.EXCEL.withHeader("Matrícula", "Marca", "Modelo", "Tipo"));
+
+            ArrayList<Moto> motos = motoDAO.getListaMotos();
+
+                for (Moto moto : motos) {
+
+                    printer.printRecord(moto.getMatricula(), moto.getMarca(), moto.getModelo(), moto.getTipo());
+
+                }
+
+            Alertas.mostrarInformacion("Exportado!", "Archivo CSV exportado con éxito");
+            printer.close();
+
+        } catch (IOException e) {
+
+            Alertas.mostrarError("Error", "Error al crear el fichero para exportar");
+
+        } catch (SQLException throwables) {
+
+            Alertas.mostrarError("Error", "Erro al exportar conectando con la base de datos");
+
+        }
+
     }
 
 
@@ -230,8 +271,39 @@ public class AppController {
     }
 
 
+
+
+    @FXML
+    public void eliminarBaseDatos(Event event) {
+
+        try {
+
+            // Si el boton pulsado en la alerta es cancelar, vuelve y no elimina la base de datos
+            if (Alertas.mostrarConfirmación().get().getButtonData() == ButtonBar.ButtonData.CANCEL_CLOSE) {
+
+                return;
+
+            } else {
+
+                motoDAO.eliminarBaseDatos();
+                Alertas.mostrarInformacion("BD Eliminada!", "Base de datos eliminada con éxito");
+                cargarDatos();
+
+            }
+
+        } catch (SQLException throwables) {
+
+            Alertas.mostrarError("Error", "Error al eliminar la base de datos");
+
+        }
+
+    }
+
+
+
+
     /**
-     * Carga los datos de una moto (Se usa con el método Seleccionar moto para cargar los datos
+     * Carga los datos de una moto (Se usa con el método seleccionarMoto para cargar los datos
      * la moto seleccionada en el List View)
      * @param moto
      */
