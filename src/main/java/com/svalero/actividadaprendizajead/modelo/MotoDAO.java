@@ -154,7 +154,12 @@ public class MotoDAO {
     }
 
 
-
+    /**
+     * Realiza la consulta a la base de datos con el tipo que recibe por parámetro y devuelve un Array List con el resultado
+     * @param tipo
+     * @return
+     * @throws SQLException
+     */
     public ArrayList<Moto> getListaMotosPorTipo(String tipo) throws SQLException {
 
         String sql = "SELECT * FROM motos WHERE tipo = ?";

@@ -7,5 +7,4 @@ package com.svalero.actividadaprendizajead.utilidades;
 public enum Accion {
 
     NUEVO, MODIFICAR
-
 }

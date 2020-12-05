@@ -23,7 +23,7 @@ public class AppController {
     public TextField tfMatricula, tfMarca, tfModelo;
     public ComboBox<String> cbTipo, cbTipoBuscar;
     public ListView<Moto> lvMotos;
-    public Button btNuevo, btGuardar, btModificar, btEliminar, btCancelar, btBuscar, btEliminarBD;
+    public Button btNuevo, btGuardar, btModificar, btEliminar, btCancelar, btBuscar, btEliminarBD, btRecuperar;
 
     private MotoDAO motoDAO;
     private Moto motoSeleccionada;
@@ -167,7 +167,9 @@ public class AppController {
     @FXML
     public void eliminarMoto(Event event) {
 
+
         Moto motoAEliminar = lvMotos.getSelectionModel().getSelectedItem();
+        Moto.motoRecuperar = motoAEliminar;
 
         if (motoAEliminar == null) {
             Alertas.mostrarError("Error", "No has seleccionado ningunas moto");
@@ -263,6 +265,11 @@ public class AppController {
     }
 
 
+    /**
+     * Busca la moto por tipo puesto en el combo Box
+     * Imprime los datos que recibe del arrayList en el listView
+     * @param event
+     */
     @FXML
     public void buscarTipo(Event event) {
 
@@ -329,6 +336,36 @@ public class AppController {
         }
 
     }
+
+
+    /**
+     * Recupera la última moto eliminada de la base de datos
+     * @param event
+     */
+    @FXML
+    public void recuperarUltimaMotoEliminada(Event event) {
+
+        try {
+
+            if (Moto.motoRecuperar == null) {
+                Alertas.mostrarInformacion("UPS!", "Aún  no has eliminado ninguna moto de la base de datos");
+                return;
+            }
+
+            motoDAO.guardarMoto(Moto.motoRecuperar);
+            Alertas.mostrarInformacion("Recuperada!", "Se ha recuperado la última moto eliminada: " + Moto.motoRecuperar.getMarca() + " " + Moto.motoRecuperar.getModelo());
+            cargarDatos();
+
+        } catch (SQLException throwables) {
+
+            Alertas.mostrarError("Error" , "No se ha podido recuperar la última moto eliminada");
+
+        }
+
+    }
+
+
+
 
 
 

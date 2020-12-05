@@ -4,6 +4,10 @@ public class Moto {
 
     private String matricula, marca, modelo, tipo;
 
+    /* VARIABLE ESTÁTICA GLOBAL -> Sirve para almacenar la última moto eliminada de la base de datos para
+    poder recuperarla en el metodo recuperarUltimaMotoEliminada()  */
+    public static Moto motoRecuperar;
+
     /**
      * Constructor vacío
      */
