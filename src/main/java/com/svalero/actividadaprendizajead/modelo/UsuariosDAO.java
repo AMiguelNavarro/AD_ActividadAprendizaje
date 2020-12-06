@@ -77,8 +77,19 @@ public class UsuariosDAO {
     }
 
 
-    public void registrarUsuario() {
-        //TODO metodo que inserte un usuario en la base de datos. Si tiene exito pasa a la ventana de la app, sino mensaje de error
+    public void registrarUsuario(Usuario usuario) throws SQLException {
+
+        String nombreUsuario = usuario.getNombreUsuario();
+        String contrasenia = usuario.getContrasenia();
+
+        String sql = "INSERT INTO usuarios (nombre, contraseña) VALUES (?, ?)";
+
+        PreparedStatement sentencia = conexion.prepareStatement(sql);
+        sentencia.setString(1, nombreUsuario);
+        sentencia.setString(2, contrasenia);
+
+        sentencia.execute();
+
     }
 
 

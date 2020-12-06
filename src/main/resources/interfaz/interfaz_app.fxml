@@ -48,6 +48,7 @@
             <Button fx:id="btEliminarBD" layoutX="303.0" layoutY="583.0" mnemonicParsing="false" onAction="#eliminarBaseDatos" prefHeight="26.0" prefWidth="88.0" text="ELIMINAR" />
             <Separator layoutX="37.0" layoutY="518.0" prefHeight="6.0" prefWidth="614.0" />
             <Label layoutX="102.0" layoutY="458.0" text="Recuperar la última moto eliminada" />
+            <Button fx:id="btBuscarTipo" layoutX="491.0" layoutY="344.0" mnemonicParsing="false" onAction="#buscarTipo" text="Buscar" />
       </children>
     </AnchorPane>
   </children>

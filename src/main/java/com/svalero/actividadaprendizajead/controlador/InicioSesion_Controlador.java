@@ -94,6 +94,9 @@ public class InicioSesion_Controlador {
 
                     Parent root = loader.load();
 
+                    appControlador.cargarDatos();
+                    appControlador.modoEdicion(false);
+
                     Scene scene = new Scene(root);
                     Stage stage = new Stage();
 
