@@ -17,12 +17,15 @@ public class R {
 
 
     /**
-     *
+     *  Devuelve los datos del fichero properties
      * @param name -> El nombre de un fichero .properties
      * @return -> devuelve el que se le diga de la carpeta configurations
      */
     public static InputStream getProperties(String name){
         return Thread.currentThread().getContextClassLoader().getResourceAsStream("configuracion" + File.separator+ name);
     }
+
+
+
 
 }

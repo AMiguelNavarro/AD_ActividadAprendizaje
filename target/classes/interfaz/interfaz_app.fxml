@@ -11,10 +11,11 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<VBox prefHeight="676.0" prefWidth="695.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="676.0" prefWidth="695.0" style="-fx-background-color: #2d3436;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <children>
-    <MenuBar VBox.vgrow="NEVER">
+    <MenuBar style="-fx-background-color: #c5d3d3;" VBox.vgrow="NEVER">
       <menus>
         <Menu mnemonicParsing="false" text="Archivo">
           <items>
@@ -25,30 +26,42 @@
     </MenuBar>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="422.0" prefWidth="662.0" VBox.vgrow="ALWAYS">
       <children>
-            <Label layoutX="35.0" layoutY="39.0" text="Matricula" />
-            <Label layoutX="35.0" layoutY="76.0" text="Marca" />
-            <Label layoutX="35.0" layoutY="118.0" text="Modelo" />
-            <Label layoutX="35.0" layoutY="160.0" text="Tipo" />
+            <Label layoutX="37.0" layoutY="36.0" text="Matricula" textFill="WHITE">
+               <font>
+                  <Font size="15.0" />
+               </font></Label>
+            <Label layoutX="37.0" layoutY="73.0" text="Marca" textFill="WHITE">
+               <font>
+                  <Font size="15.0" />
+               </font></Label>
+            <Label layoutX="37.0" layoutY="115.0" text="Modelo" textFill="WHITE">
+               <font>
+                  <Font size="15.0" />
+               </font></Label>
+            <Label layoutX="39.0" layoutY="158.0" text="Tipo" textFill="WHITE">
+               <font>
+                  <Font size="15.0" />
+               </font></Label>
             <TextField fx:id="tfMatricula" layoutX="127.0" layoutY="34.0" />
             <TextField fx:id="tfMarca" layoutX="127.0" layoutY="71.0" />
             <TextField fx:id="tfModelo" layoutX="127.0" layoutY="113.0" />
-            <Button fx:id="btNuevo" layoutX="68.0" layoutY="226.0" mnemonicParsing="false" onAction="#nuevaMoto" text="Nuevo" />
-            <Button fx:id="btGuardar" layoutX="138.0" layoutY="226.0" mnemonicParsing="false" onAction="#guardarMoto" text="Guardar" />
-            <Button fx:id="btEliminar" layoutX="309.0" layoutY="227.0" mnemonicParsing="false" onAction="#eliminarMoto" text="Eliminar" />
-            <Button fx:id="btModificar" layoutX="220.0" layoutY="227.0" mnemonicParsing="false" onAction="#modificarMoto" text="Modificar" />
+            <Button fx:id="btNuevo" layoutX="37.0" layoutY="223.0" mnemonicParsing="false" onAction="#nuevaMoto" style="-fx-background-color: #337ab7; -fx-font-size: 15px; -fx-font-weight: bold;" text="Nuevo" textFill="WHITE" />
+            <Button fx:id="btGuardar" layoutX="114.0" layoutY="223.0" mnemonicParsing="false" onAction="#guardarMoto" style="-fx-background-color: #00b300; -fx-font-size: 15px; -fx-font-weight: bold;" text="Guardar" textFill="WHITE" />
+            <Button fx:id="btEliminar" layoutX="302.0" layoutY="223.0" mnemonicParsing="false" onAction="#eliminarMoto" style="-fx-font-size: 15px; -fx-font-weight: bold; -fx-background-color: #ff6600;" text="Eliminar" textFill="WHITE" />
+            <Button fx:id="btModificar" layoutX="203.0" layoutY="223.0" mnemonicParsing="false" onAction="#modificarMoto" style="-fx-background-color: #00b300; -fx-font-size: 15px; -fx-font-weight: bold;" text="Modificar" textFill="WHITE" />
             <ComboBox fx:id="cbTipo" layoutX="127.0" layoutY="155.0" prefHeight="27.0" prefWidth="167.0" />
             <ListView fx:id="lvMotos" layoutX="396.0" layoutY="19.0" onMouseClicked="#getMotoListView" prefHeight="270.0" prefWidth="254.0" />
-            <Button fx:id="btCancelar" layoutX="137.0" layoutY="262.0" mnemonicParsing="false" onAction="#cancelar" text="Cancelar" />
-            <Separator layoutX="37.0" layoutY="308.0" prefHeight="6.0" prefWidth="614.0" />
-            <Label layoutX="102.0" layoutY="348.0" text="Busqueda por tipo de moto" />
-            <ComboBox fx:id="cbTipoBuscar" layoutX="273.0" layoutY="343.0" prefHeight="26.0" prefWidth="178.0" />
-            <Button fx:id="btRecuperar" layoutX="336.0" layoutY="453.0" mnemonicParsing="false" onAction="#recuperarUltimaMotoEliminada" prefHeight="26.0" prefWidth="97.0" text="RECUPERAR" />
-            <Separator layoutX="37.0" layoutY="408.0" prefHeight="6.0" prefWidth="614.0" />
-            <Label layoutX="206.0" layoutY="558.0" text="ELIMINAR TODOS LOS DATOS DE LA BASE DE DATOS" />
-            <Button fx:id="btEliminarBD" layoutX="303.0" layoutY="583.0" mnemonicParsing="false" onAction="#eliminarBaseDatos" prefHeight="26.0" prefWidth="88.0" text="ELIMINAR" />
-            <Separator layoutX="37.0" layoutY="518.0" prefHeight="6.0" prefWidth="614.0" />
-            <Label layoutX="102.0" layoutY="458.0" text="Recuperar la última moto eliminada" />
-            <Button fx:id="btBuscarTipo" layoutX="491.0" layoutY="344.0" mnemonicParsing="false" onAction="#buscarTipo" text="Buscar" />
+            <Button fx:id="btCancelar" layoutX="113.0" layoutY="267.0" mnemonicParsing="false" onAction="#cancelar" style="-fx-font-size: 15px; -fx-font-weight: bold; -fx-background-color: #ff6600;" text="Cancelar" textFill="WHITE" />
+            <Separator layoutX="37.0" layoutY="318.0" prefHeight="6.0" prefWidth="614.0" />
+            <Label layoutX="62.0" layoutY="355.0" style="-fx-font-size: 15px; -fx-font-weight: bold; -fx-font-style: italic;" text="Busqueda por tipo de moto" textFill="WHITE" />
+            <ComboBox fx:id="cbTipoBuscar" layoutX="273.0" layoutY="353.0" prefHeight="26.0" prefWidth="178.0" />
+            <Button fx:id="btRecuperar" layoutX="344.0" layoutY="460.0" mnemonicParsing="false" onAction="#recuperarUltimaMotoEliminada" prefHeight="31.0" prefWidth="126.0" style="-fx-background-color: #00b300; -fx-font-weight: bold; -fx-font-size: 15px;" text="RECUPERAR" textFill="WHITE" />
+            <Separator layoutX="37.0" layoutY="418.0" prefHeight="6.0" prefWidth="614.0" />
+            <Label layoutX="153.0" layoutY="555.0" style="-fx-font-size: 15px; -fx-font-weight: bold;" text="ELIMINAR TODOS LOS DATOS DE LA BASE DE DATOS" textFill="WHITE" />
+            <Separator layoutX="37.0" layoutY="528.0" prefHeight="6.0" prefWidth="614.0" />
+            <Label layoutX="62.0" layoutY="465.0" style="-fx-font-size: 15px; -fx-font-weight: bold; -fx-font-style: italic;" text="Recuperar la última moto eliminada" textFill="WHITE" />
+            <Button fx:id="btBuscarTipo" layoutX="491.0" layoutY="350.0" mnemonicParsing="false" onAction="#buscarTipo" style="-fx-background-color: #00b300; -fx-font-weight: bold; -fx-font-size: 15px;" text="Buscar" textFill="WHITE" />
+            <Button fx:id="btEliminarBD" layoutX="271.0" layoutY="589.0" mnemonicParsing="false" onAction="#eliminarBaseDatos" prefHeight="31.0" prefWidth="141.0" style="-fx-background-color: #e60000; -fx-font-size: 15px;" text="ELIMINAR" textFill="WHITE" />
       </children>
     </AnchorPane>
   </children>

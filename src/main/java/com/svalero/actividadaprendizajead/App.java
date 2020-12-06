@@ -19,16 +19,12 @@ public class App extends Application {
     public void start(Stage stage) throws Exception {
 
         FXMLLoader loader = new FXMLLoader();
-//        AppController controlador = new AppController();
         Inicio_Controlador controlador = new Inicio_Controlador();
 
         loader.setLocation(R.getUI("inicio.fxml"));
         loader.setController(controlador);
 
         Parent root = loader.load();
-
-//        controlador.cargarDatos();
-//        controlador.modoEdicion(false);
 
         Scene scene = new Scene(root);
         stage.setScene(scene);

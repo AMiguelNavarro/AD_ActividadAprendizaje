@@ -66,7 +66,7 @@ public class App_Controlador {
      * @param event
      */
     @FXML
-    public void nuevaMoto(Event event) { // TODO arreglar bug, se realizan varias operaciones y se pulsa nuevo carga el tipo del último objeto seleccionado
+    public void nuevaMoto(Event event) { //
 
         cargarDatos();
         tfMatricula.requestFocus();
@@ -293,6 +293,7 @@ public class App_Controlador {
             if (listaMotos.isEmpty()) {
 
                 Alertas.mostrarInformacion("Lo sentimos!", "No hay ningúna moto de tipo " + tipo + " en la base de datos");
+                cargarDatos();
                 return;
 
             }
@@ -309,10 +310,15 @@ public class App_Controlador {
     }
 
 
-
-
+    /**
+     *
+     * Elimina todos los datos de la base de datos
+     * @param event
+     */
     @FXML
     public void eliminarBaseDatos(Event event) {
+        //TODO en un procedimiento almacenado
+        // TODO ¿MOSTRAR TOTAL DE MOTOS CON UNA FUNCIÓN ALMACENADA?
 
         try {
 
@@ -402,6 +408,7 @@ public class App_Controlador {
             tfMarca.setText("");
             tfModelo.setText("");
             cbTipo.setValue("<Seleccionar tipo>");
+            cbTipoBuscar.setValue("<Seleccionar tipo>");
 
 
         } catch (SQLException throwables) {
@@ -428,7 +435,7 @@ public class App_Controlador {
         tfMatricula.setEditable(activar);
         tfMarca.setEditable(activar);
         tfModelo.setEditable(activar);
-        cbTipo.setEditable(activar);
+//        cbTipo.setEditable(activar);
 
         lvMotos.setDisable(activar);
 
