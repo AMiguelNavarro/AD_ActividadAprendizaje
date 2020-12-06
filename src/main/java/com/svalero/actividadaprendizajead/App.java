@@ -1,9 +1,10 @@
 package com.svalero.actividadaprendizajead;
 
-import com.svalero.actividadaprendizajead.controlador.AppController;
+import com.svalero.actividadaprendizajead.controlador.Inicio_Controlador;
 import com.svalero.actividadaprendizajead.utilidades.R;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -18,17 +19,18 @@ public class App extends Application {
     public void start(Stage stage) throws Exception {
 
         FXMLLoader loader = new FXMLLoader();
-        AppController controlador = new AppController();
+//        AppController controlador = new AppController();
+        Inicio_Controlador controlador = new Inicio_Controlador();
 
-        loader.setLocation(R.getUI("interfaz_app.fxml"));
+        loader.setLocation(R.getUI("inicio.fxml"));
         loader.setController(controlador);
 
-        VBox vbox = loader.load();
+        Parent root = loader.load();
 
-        controlador.cargarDatos();
-        controlador.modoEdicion(false);
+//        controlador.cargarDatos();
+//        controlador.modoEdicion(false);
 
-        Scene scene = new Scene(vbox);
+        Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
 

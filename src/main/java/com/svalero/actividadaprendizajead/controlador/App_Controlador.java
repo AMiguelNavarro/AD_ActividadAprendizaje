@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class AppController {
+public class App_Controlador {
 
     public TextField tfMatricula, tfMarca, tfModelo;
     public ComboBox<String> cbTipo, cbTipoBuscar;
@@ -35,7 +35,7 @@ public class AppController {
     /**
      * Constructor del AppController que inicia la conexión con la base de datos cuando se instancia en el main
      */
-    public AppController() {
+    public App_Controlador() {
 
         motoDAO = new MotoDAO();
 

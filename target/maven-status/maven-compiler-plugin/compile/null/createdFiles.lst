@@ -1,8 +1,13 @@
 com\svalero\actividadaprendizajead\App.class
 com\svalero\actividadaprendizajead\modelo\MotoDAO.class
 com\svalero\actividadaprendizajead\utilidades\Accion.class
+com\svalero\actividadaprendizajead\clases\Usuario.class
+com\svalero\actividadaprendizajead\controlador\Inicio_Controlador.class
 com\svalero\actividadaprendizajead\utilidades\Alertas.class
+com\svalero\actividadaprendizajead\controlador\InicioSesion_Controlador.class
+com\svalero\actividadaprendizajead\controlador\App_Controlador.class
 com\svalero\actividadaprendizajead\utilidades\R.class
+com\svalero\actividadaprendizajead\controlador\Registro_Controlador.class
 com\svalero\actividadaprendizajead\clases\Moto.class
-com\svalero\actividadaprendizajead\controlador\AppController.class
-com\svalero\actividadaprendizajead\controlador\AppController$1.class
+com\svalero\actividadaprendizajead\controlador\App_Controlador$1.class
+com\svalero\actividadaprendizajead\modelo\UsuariosDAO.class
