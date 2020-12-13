@@ -17,17 +17,16 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.SQLException;
 
-public class Registro_Controlador {
+public class InicioSesionControlador {
 
     public TextField tfNombreUsuario;
     public PasswordField pfContrasenia;
-    public Button btRegistro, btVolver;
+    public Button btValidarInicioSesion, btVolver;
 
     private UsuariosDAO usuariosDAO;
 
 
-
-    public Registro_Controlador() {
+    public InicioSesionControlador() {
 
         usuariosDAO = new UsuariosDAO();
 
@@ -51,58 +50,76 @@ public class Registro_Controlador {
 
     }
 
+
     /**
-     * Registra el usuario en la base de datos, si tiene existo carga la ventan de la app sino no hace nada
+     * Comprueba si el usuario existe en la base de datos mediante el método validarUsuario() del DAO
+     *  Si existe y los datos son correctos pasa a la ventana de la app
      * @param event
      */
     @FXML
-    public void  registrarUsuario(Event event) {
+    public void validarInicioSesion(Event event) {
 
         try {
 
             String nombreUsuario = tfNombreUsuario.getText();
             String contrasenia = String.valueOf(pfContrasenia.getText());
+            boolean existe;
 
             if (nombreUsuario.isEmpty() || nombreUsuario == "") {
                 Alertas.mostrarError("Error", "El nombre de usuario no puede estar vacio");
                 return;
             }
-            if (contrasenia.isEmpty() || contrasenia == "") {
+            if (contrasenia.isEmpty() || contrasenia == ""){
                 Alertas.mostrarError("Error", "La contraseña no puede estar vacía");
                 return;
             }
 
             Usuario usuario = new Usuario(nombreUsuario, contrasenia);
-            usuariosDAO.registrarUsuario(usuario);
 
-            FXMLLoader loader = new FXMLLoader();
-            App_Controlador appControlador = new App_Controlador();
+            existe = usuariosDAO.validarUsuario(usuario);
 
-            loader.setLocation(R.getUI("interfaz_app.fxml"));
-            loader.setController(appControlador);
+            // Si existe
+            if (existe) {
 
-            Parent root = loader.load();
+                try {
 
-            appControlador.cargarDatos();
-            appControlador.modoEdicion(false);
+                    FXMLLoader loader = new FXMLLoader();
+                    AppControlador appControlador = new AppControlador();
 
-            Scene scene = new Scene(root);
-            Stage stage = new Stage();
+                    loader.setLocation(R.getUI("interfaz_app.fxml"));
+                    loader.setController(appControlador);
 
-            stage.setScene(scene);
-            stage.show();
+                    Parent root = loader.load();
 
-            // Capturo el stage actual para cerrarlo
-            Stage myStage = (Stage) this.btRegistro.getScene().getWindow();
-            myStage.close();
+                    appControlador.cargarDatos();
+                    appControlador.modoEdicion(false);
+
+                    Scene scene = new Scene(root);
+                    Stage stage = new Stage();
+
+                    stage.setScene(scene);
+                    stage.show();
+
+                    // Capturo el stage actual para cerrarlo
+                    Stage myStage = (Stage) this.btValidarInicioSesion.getScene().getWindow();
+                    myStage.close();
+
+
+
+                } catch (IOException e) {
+
+                    Alertas.mostrarError("Error", "No se ha podido abrir la ventana de inicio de sesión");
+
+                }
+
+            // Si no existe
+            } else {
+                Alertas.mostrarError("Error", "El usuario introducido no existe en la base de datos");
+            }
 
         } catch (SQLException throwables) {
 
-            Alertas.mostrarError("Error", "Error al registrar el usuario en la base de datos");
-
-        } catch (IOException e) {
-
-            Alertas.mostrarError("Error", "Problemas al cargar la ventana de la APP");
+            Alertas.mostrarError("Error", "Error al validar el usuario");
 
         }
 
@@ -119,7 +136,7 @@ public class Registro_Controlador {
         try {
 
             FXMLLoader loader = new FXMLLoader();
-            Inicio_Controlador inicioControlador = new Inicio_Controlador();
+            InicioControlador inicioControlador = new InicioControlador();
 
             loader.setLocation(R.getUI("inicio.fxml"));
             loader.setController(inicioControlador);
@@ -133,7 +150,7 @@ public class Registro_Controlador {
             stage.show();
 
             // Capturo el stage actual para cerrarlo
-            Stage myStage = (Stage) this.btRegistro.getScene().getWindow();
+            Stage myStage = (Stage) this.btValidarInicioSesion.getScene().getWindow();
             myStage.close();
 
 
@@ -145,5 +162,6 @@ public class Registro_Controlador {
         }
 
     }
+
 
 }

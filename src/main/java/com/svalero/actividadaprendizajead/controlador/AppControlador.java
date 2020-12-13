@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class App_Controlador {
+public class AppControlador {
 
     public TextField tfMatricula, tfMarca, tfModelo;
     public ComboBox<String> cbTipo, cbTipoBuscar;
@@ -35,7 +35,7 @@ public class App_Controlador {
     /**
      * Constructor del AppController que inicia la conexión con la base de datos cuando se instancia en el main
      */
-    public App_Controlador() {
+    public AppControlador() {
 
         motoDAO = new MotoDAO();
 
@@ -250,6 +250,26 @@ public class App_Controlador {
         }
 
     }
+
+
+
+    // TODO importar
+    /*
+    * @FXML
+    public void importar(Event event){
+        try {
+            FileChooser fileChooser = new FileChooser();
+            File importar = fileChooser.showOpenDialog(null);
+
+            BufferedReader br = new BufferedReader(new FileReader(importar));
+            String linea = br.readLine();
+
+            while (linea != null){
+                String[] datos = linea.split(",");
+                Libros libros = crearLibro(datos);
+                librosDAO.nuevoLibro(libros);
+                l
+    * */
 
 
     /**

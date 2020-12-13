@@ -15,21 +15,19 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.Properties;
 
-public class InicioSesion_Controlador {
+public class RegistroControlador {
 
     public TextField tfNombreUsuario;
     public PasswordField pfContrasenia;
-    public Button btValidarInicioSesion, btVolver;
+    public Button btRegistro, btVolver;
 
     private UsuariosDAO usuariosDAO;
 
 
-    public InicioSesion_Controlador() {
+
+    public RegistroControlador() {
 
         usuariosDAO = new UsuariosDAO();
 
@@ -53,76 +51,58 @@ public class InicioSesion_Controlador {
 
     }
 
-
     /**
-     * Comprueba si el usuario existe en la base de datos mediante el método validarUsuario() del DAO
-     *  Si existe y los datos son correctos pasa a la ventana de la app
+     * Registra el usuario en la base de datos, si tiene existo carga la ventan de la app sino no hace nada
      * @param event
      */
     @FXML
-    public void validarInicioSesion(Event event) {
+    public void  registrarUsuario(Event event) {
 
         try {
 
             String nombreUsuario = tfNombreUsuario.getText();
             String contrasenia = String.valueOf(pfContrasenia.getText());
-            boolean existe;
 
             if (nombreUsuario.isEmpty() || nombreUsuario == "") {
                 Alertas.mostrarError("Error", "El nombre de usuario no puede estar vacio");
                 return;
             }
-            if (contrasenia.isEmpty() || contrasenia == ""){
+            if (contrasenia.isEmpty() || contrasenia == "") {
                 Alertas.mostrarError("Error", "La contraseña no puede estar vacía");
                 return;
             }
 
             Usuario usuario = new Usuario(nombreUsuario, contrasenia);
+            usuariosDAO.registrarUsuario(usuario);
 
-            existe = usuariosDAO.validarUsuario(usuario);
+            FXMLLoader loader = new FXMLLoader();
+            AppControlador appControlador = new AppControlador();
 
-            // Si existe
-            if (existe) {
+            loader.setLocation(R.getUI("interfaz_app.fxml"));
+            loader.setController(appControlador);
 
-                try {
+            Parent root = loader.load();
 
-                    FXMLLoader loader = new FXMLLoader();
-                    App_Controlador appControlador = new App_Controlador();
+            appControlador.cargarDatos();
+            appControlador.modoEdicion(false);
 
-                    loader.setLocation(R.getUI("interfaz_app.fxml"));
-                    loader.setController(appControlador);
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
 
-                    Parent root = loader.load();
+            stage.setScene(scene);
+            stage.show();
 
-                    appControlador.cargarDatos();
-                    appControlador.modoEdicion(false);
-
-                    Scene scene = new Scene(root);
-                    Stage stage = new Stage();
-
-                    stage.setScene(scene);
-                    stage.show();
-
-                    // Capturo el stage actual para cerrarlo
-                    Stage myStage = (Stage) this.btValidarInicioSesion.getScene().getWindow();
-                    myStage.close();
-
-
-
-                } catch (IOException e) {
-
-                    Alertas.mostrarError("Error", "No se ha podido abrir la ventana de inicio de sesión");
-
-                }
-
-            // Si no existe
-            } else {
-                Alertas.mostrarError("Error", "El usuario introducido no existe en la base de datos");
-            }
+            // Capturo el stage actual para cerrarlo
+            Stage myStage = (Stage) this.btRegistro.getScene().getWindow();
+            myStage.close();
 
         } catch (SQLException throwables) {
 
-            Alertas.mostrarError("Error", "Error al validar el usuario");
+            Alertas.mostrarError("Error", "Error al registrar el usuario en la base de datos");
+
+        } catch (IOException e) {
+
+            Alertas.mostrarError("Error", "Problemas al cargar la ventana de la APP");
 
         }
 
@@ -139,7 +119,7 @@ public class InicioSesion_Controlador {
         try {
 
             FXMLLoader loader = new FXMLLoader();
-            Inicio_Controlador inicioControlador = new Inicio_Controlador();
+            InicioControlador inicioControlador = new InicioControlador();
 
             loader.setLocation(R.getUI("inicio.fxml"));
             loader.setController(inicioControlador);
@@ -153,7 +133,7 @@ public class InicioSesion_Controlador {
             stage.show();
 
             // Capturo el stage actual para cerrarlo
-            Stage myStage = (Stage) this.btValidarInicioSesion.getScene().getWindow();
+            Stage myStage = (Stage) this.btRegistro.getScene().getWindow();
             myStage.close();
 
 
@@ -165,6 +145,5 @@ public class InicioSesion_Controlador {
         }
 
     }
-
 
 }

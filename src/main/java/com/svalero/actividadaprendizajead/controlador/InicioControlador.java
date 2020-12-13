@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class Inicio_Controlador {
+public class InicioControlador {
 
     public Button btIniciarSesion, btRegistrarse;
 
@@ -24,7 +24,7 @@ public class Inicio_Controlador {
         try {
 
             FXMLLoader loader = new FXMLLoader();
-            InicioSesion_Controlador inicioSesionControlador = new InicioSesion_Controlador();
+            InicioSesionControlador inicioSesionControlador = new InicioSesionControlador();
 
             loader.setLocation(R.getUI("inicio_sesion.fxml"));
             loader.setController(inicioSesionControlador);
@@ -58,7 +58,7 @@ public class Inicio_Controlador {
         try {
 
             FXMLLoader loader = new FXMLLoader();
-            Registro_Controlador registroControlador = new Registro_Controlador();
+            RegistroControlador registroControlador = new RegistroControlador();
 
             loader.setLocation(R.getUI("registro.fxml"));
             loader.setController(registroControlador);
