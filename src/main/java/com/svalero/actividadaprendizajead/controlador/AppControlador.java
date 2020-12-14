@@ -11,6 +11,8 @@ import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -28,6 +30,8 @@ public class AppControlador {
     private MotoDAO motoDAO;
     private Moto motoSeleccionada;
     private Accion accion;
+
+    private static final Logger logger = LogManager.getLogger(AppControlador.class);
 
 
 
@@ -68,6 +72,8 @@ public class AppControlador {
     @FXML
     public void nuevaMoto(Event event) { //
 
+        logger.trace("Se pulsa el boton de nueva moto");
+
         cargarDatos();
         tfMatricula.requestFocus();
         modoEdicion(true);
@@ -82,7 +88,7 @@ public class AppControlador {
      * @throws SQLException
      */
     @FXML
-    public void guardarMoto(Event event) throws SQLException {
+    public void guardarMoto(Event event){
 
         String matricula = tfMatricula.getText();
         String marca = tfMarca.getText();
@@ -91,18 +97,22 @@ public class AppControlador {
 
         if (matricula.isEmpty() || matricula == null) {
             Alertas.mostrarError("Error Matrícula", "El campo matrícula no puede estar vacío");
+            logger.trace("Error al guardar la moto, el campo matrícula está vacío");
             return;
         }
         if (marca.isEmpty() || marca == null) {
             Alertas.mostrarError("Error Marca", "El campo marca no puede estar vacío");
+            logger.trace("Error al guardar la moto, el campo marca está vacío");
             return;
         }
         if (modelo.isEmpty() || modelo == null) {
             Alertas.mostrarError("Error Modelo", "El campo modelo no puede estar vacío");
+            logger.trace("Error al guardar la moto, el campo modelo está vacío");
             return;
         }
         if (tipo.isEmpty() || tipo == null || tipo == "<Seleccionar tipo>") {
             Alertas.mostrarError("Error Tipo", "El campo tipo no puede estar vacío");
+            logger.trace("Error al guardar la moto, el campo tipo está vacío");
             return;
         }
 
@@ -117,6 +127,13 @@ public class AppControlador {
                     motoDAO.guardarMoto(moto);
                     Alertas.mostrarInformacion("Guardado!", "La moto se ha guardado con éxito");
                     modoEdicion(false);
+
+                    logger.trace("Se guarda una NUEVA moto en la base de datos: "
+                                    + moto.getMatricula() + ", "
+                                    + moto.getMarca() + ", "
+                                    + moto.getModelo() + ", "
+                                    + moto.getTipo()
+                    );
                     break;
 
                 case MODIFICAR:
@@ -124,6 +141,18 @@ public class AppControlador {
                     motoDAO.modificarMoto(motoSeleccionada, moto);
                     Alertas.mostrarInformacion("Modificado!", "La moto se ha modificado con éxito");
                     modoEdicion(false);
+
+                    logger.trace("Se MODIFICA la moto: "
+                                        + motoSeleccionada.getMatricula() + ", "
+                                        + motoSeleccionada.getMarca() + ", "
+                                        + motoSeleccionada.getModelo() + ", "
+                                        + motoSeleccionada.getTipo() +
+                                        ", a --> "
+                                            + moto.getMatricula() + ", "
+                                            + moto.getMarca() + ", "
+                                            + moto.getModelo() + ", "
+                                            + moto.getTipo()
+                    );
                     break;
 
             }
@@ -132,10 +161,14 @@ public class AppControlador {
 
             if (accion == Accion.NUEVO) {
                 Alertas.mostrarError("Error", "Error al guardar la moto en la base de datos");
+
+                logger.error("Error al guardar la nueva moto en la base de datos " + sqle.fillInStackTrace());
             }
 
             if (accion == Accion.MODIFICAR) {
                 Alertas.mostrarError("Error", "Error al modificar la moto en la base de datos");
+
+                logger.error("Error al modificar la moto en la base de datos " + sqle.fillInStackTrace());
             }
 
         }
@@ -157,6 +190,8 @@ public class AppControlador {
         modoEdicion(true);
         accion = Accion.MODIFICAR;
 
+        logger.trace("Se pulsa el botón de modificar una moto");
+
     }
 
 
@@ -173,6 +208,8 @@ public class AppControlador {
 
         if (motoAEliminar == null) {
             Alertas.mostrarError("Error", "No has seleccionado ningunas moto");
+
+            logger.trace("Se intenta eliminar una moto pero no se ha seleccionado ninguna");
             return;
         }
 
@@ -181,16 +218,27 @@ public class AppControlador {
 
             // Si el boton pulsado en la alerta es cancelar, vuelve y no elimina la moto
             if (Alertas.mostrarConfirmación().get().getButtonData() == ButtonBar.ButtonData.CANCEL_CLOSE) {
+                logger.trace("Se cancela la operación de eliminar moto");
                 return;
             }
 
             motoDAO.eliminarMoto(motoAEliminar);
             Alertas.mostrarInformacion("Eliminada!", "Moto eliminada con éxito");
+
+            logger.trace("Se elimina la moto con éxito "
+                                + motoAEliminar.getMatricula()
+                                + ", " + motoAEliminar.getMarca()
+                                + ", " + motoAEliminar.getModelo()
+                                + ", " +motoAEliminar.getTipo()
+            );
+
             cargarDatos();
 
         } catch (SQLException throwables) {
 
             Alertas.mostrarError("Error", "Error al eliminar la moto de la base de datos");
+
+            logger.error("Error al eliminar la moto de la base de datos " + throwables.fillInStackTrace());
 
         }
 
@@ -199,11 +247,15 @@ public class AppControlador {
     @FXML
     public void cancelar(Event event) {
 
-        // Si el usuario cancela la operación vuelve
+        // Si no cancela la operación se queda ahí
         if (Alertas.mostrarConfirmación().get().getButtonData() == ButtonBar.ButtonData.CANCEL_CLOSE) {
+            logger.trace("Se pulsa cancelar en la alerta de confirmación");
             cargarDatos();
             return;
+
+        // Si el usuario cancela la operación vuelve
         } else {
+            logger.trace("Se pulsa aceptar en la alerta de confirmación");
             modoEdicion(false);
             cargarDatos();
         }
@@ -239,37 +291,23 @@ public class AppControlador {
             Alertas.mostrarInformacion("Exportado!", "Archivo CSV exportado con éxito");
             printer.close();
 
+            logger.trace("Se exporta la base de datos con las motos correctamente");
+
         } catch (IOException e) {
 
             Alertas.mostrarError("Error", "Error al crear el fichero para exportar");
+
+            logger.error("Error al exportar el fichero con la base de datos de las motos " + e.fillInStackTrace());
 
         } catch (SQLException throwables) {
 
             Alertas.mostrarError("Error", "Erro al exportar conectando con la base de datos");
 
+            logger.error("Error al conectar con la base de datos para exportar los datos " + throwables.fillInStackTrace());
+
         }
 
     }
-
-
-
-    // TODO importar
-    /*
-    * @FXML
-    public void importar(Event event){
-        try {
-            FileChooser fileChooser = new FileChooser();
-            File importar = fileChooser.showOpenDialog(null);
-
-            BufferedReader br = new BufferedReader(new FileReader(importar));
-            String linea = br.readLine();
-
-            while (linea != null){
-                String[] datos = linea.split(",");
-                Libros libros = crearLibro(datos);
-                librosDAO.nuevoLibro(libros);
-                l
-    * */
 
 
     /**
@@ -280,7 +318,15 @@ public class AppControlador {
     public void getMotoListView(Event event) {
 
         motoSeleccionada = lvMotos.getSelectionModel().getSelectedItem();
+
+        if (motoSeleccionada == null) {
+            Alertas.mostrarInformacion("Lista de motos", "No has seleccionado ninguna moto de la lista");
+            logger.trace("Se selecciona un hueco vacío del ListView");
+        }
+
         cargarMoto(motoSeleccionada);
+
+        logger.trace("Se selecciona una moto del listView");
 
     }
 
@@ -304,6 +350,9 @@ public class AppControlador {
             if (tipo == null || tipo == "<Seleccionar tipo>") {
 
                 Alertas.mostrarError("Error" , "Debes seleccionar un tipo de moto");
+
+                logger.trace("Se intenta filtrar por tipo de moto pero no se selecciona ninguno");
+
                 return;
 
             }
@@ -313,6 +362,9 @@ public class AppControlador {
             if (listaMotos.isEmpty()) {
 
                 Alertas.mostrarInformacion("Lo sentimos!", "No hay ningúna moto de tipo " + tipo + " en la base de datos");
+
+                logger.trace("No hay ningún tipo de moto " + tipo + " en la base de datos");
+
                 cargarDatos();
                 return;
 
@@ -320,9 +372,13 @@ public class AppControlador {
 
             lvMotos.setItems(FXCollections.observableList(listaMotos));
 
+            logger.trace("Se cargan todas las motos del tipo " + tipo + " de la base de datos");
+
         } catch (SQLException throwables) {
 
             Alertas.mostrarError("Error", "Erro al filtrar por tipo de moto en la base de datos");
+
+            logger.error("Error al filtrar el tipo de moto en la base de datos " + throwables.fillInStackTrace());
 
         }
 
@@ -337,13 +393,13 @@ public class AppControlador {
      */
     @FXML
     public void eliminarBaseDatos(Event event) {
-        //TODO en un procedimiento almacenado
-        // TODO ¿MOSTRAR TOTAL DE MOTOS CON UNA FUNCIÓN ALMACENADA?
 
         try {
 
             // Si el boton pulsado en la alerta es cancelar, vuelve y no elimina la base de datos
             if (Alertas.mostrarConfirmación().get().getButtonData() == ButtonBar.ButtonData.CANCEL_CLOSE) {
+
+                logger.trace("Se cancela la operación de eliminar todos los datos de la base de datos");
 
                 return;
 
@@ -353,11 +409,15 @@ public class AppControlador {
                 Alertas.mostrarInformacion("BD Eliminada!", "Base de datos eliminada con éxito");
                 cargarDatos();
 
+                logger.trace("Se eliminan todos los datos de la base de datos");
+
             }
 
         } catch (SQLException throwables) {
 
             Alertas.mostrarError("Error", "Error al eliminar la base de datos");
+
+            logger.error("Error al eliminar todos los datos de la base de datos");
 
         }
 
@@ -375,6 +435,7 @@ public class AppControlador {
 
             if (Moto.motoRecuperar == null) {
                 Alertas.mostrarInformacion("UPS!", "Aún  no has eliminado ninguna moto de la base de datos");
+                logger.trace("Se intenta recuperar la última moto eliminada de la base de datos, pero no se había eliminado ninguna");
                 return;
             }
 
@@ -382,9 +443,18 @@ public class AppControlador {
             Alertas.mostrarInformacion("Recuperada!", "Se ha recuperado la última moto eliminada: " + Moto.motoRecuperar.getMarca() + " " + Moto.motoRecuperar.getModelo());
             cargarDatos();
 
+            logger.trace("Se recupera la última moto eliminada de la base de datos "
+                                + Moto.motoRecuperar.getMatricula() + ", "
+                                + Moto.motoRecuperar.getMarca() + ", "
+                                + Moto.motoRecuperar.getModelo() + ", "
+                                + Moto.motoRecuperar.getTipo()
+            );
+
         } catch (SQLException throwables) {
 
             Alertas.mostrarError("Error" , "No se ha podido recuperar la última moto eliminada");
+
+            logger.error("Error al recuperar la última moto eliminada de la base de datos " + throwables.fillInStackTrace());
 
         }
 
@@ -408,6 +478,8 @@ public class AppControlador {
         tfModelo.setText(moto.getModelo());
         cbTipo.setValue(moto.getTipo());
 
+        logger.trace("Se carga la moto del ListView en los textfields");
+
     }
 
 
@@ -430,10 +502,14 @@ public class AppControlador {
             cbTipo.setValue("<Seleccionar tipo>");
             cbTipoBuscar.setValue("<Seleccionar tipo>");
 
+            logger.trace("Se cargan los datos de la base de datos y se limpian las cajas");
+
 
         } catch (SQLException throwables) {
 
             Alertas.mostrarError("Error Conexión", "Error al cargar los datos de la base de datos");
+
+            logger.error("Error al cargar los datos de la base de datos " + throwables.fillInStackTrace());
 
         }
 
@@ -458,6 +534,13 @@ public class AppControlador {
 //        cbTipo.setEditable(activar);
 
         lvMotos.setDisable(activar);
+
+        if (activar) {
+            logger.trace("Se activa el modo edición");
+        } else {
+            logger.trace("Se desactiva el modo edición");
+        }
+
 
     }
 

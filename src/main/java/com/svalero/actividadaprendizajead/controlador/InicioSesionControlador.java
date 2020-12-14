@@ -13,6 +13,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -24,6 +26,7 @@ public class InicioSesionControlador {
     public Button btValidarInicioSesion, btVolver;
 
     private UsuariosDAO usuariosDAO;
+    private static final Logger logger = LogManager.getLogger(InicioSesionControlador.class);
 
 
     public InicioSesionControlador() {
@@ -34,17 +37,25 @@ public class InicioSesionControlador {
 
             usuariosDAO.conectar();
 
+            logger.trace("Se conecta con la base de datos para iniciar sesión");
+
         } catch (IOException e) {
 
             Alertas.mostrarError("Error de conexión","Error al leer el fichero properties");
+
+            logger.error("Error al conectar con la base de datos en el fichero properties " + e.fillInStackTrace());
 
         } catch (SQLException throwables) {
 
             Alertas.mostrarError("Error de conexión","Error al conectar con la base de datos");
 
+            logger.error("Error al conectar con la base de datos " + throwables.fillInStackTrace());
+
         } catch (ClassNotFoundException e) {
 
             Alertas.mostrarError("Error de conexión","Error al iniciar la aplicación");
+
+            logger.error("Error al conectar con la base de datos e iniciar la aplicación " + e.fillInStackTrace());
 
         }
 
@@ -67,10 +78,13 @@ public class InicioSesionControlador {
 
             if (nombreUsuario.isEmpty() || nombreUsuario == "") {
                 Alertas.mostrarError("Error", "El nombre de usuario no puede estar vacio");
+
+                logger.trace("Se intenta iniciar sesión pero el nombre de usuario está vacío");
                 return;
             }
             if (contrasenia.isEmpty() || contrasenia == ""){
                 Alertas.mostrarError("Error", "La contraseña no puede estar vacía");
+                logger.trace("Se intenta iniciar sesión pero la contraseña está vacía");
                 return;
             }
 
@@ -80,6 +94,8 @@ public class InicioSesionControlador {
 
             // Si existe
             if (existe) {
+
+                logger.trace("El usuario introducido existe, se da paso a la aplicación");
 
                 try {
 
@@ -100,6 +116,8 @@ public class InicioSesionControlador {
                     stage.setScene(scene);
                     stage.show();
 
+                    logger.trace("Se carga la ventana de la aplicación");
+
                     // Capturo el stage actual para cerrarlo
                     Stage myStage = (Stage) this.btValidarInicioSesion.getScene().getWindow();
                     myStage.close();
@@ -108,18 +126,24 @@ public class InicioSesionControlador {
 
                 } catch (IOException e) {
 
-                    Alertas.mostrarError("Error", "No se ha podido abrir la ventana de inicio de sesión");
+                    Alertas.mostrarError("Error", "No se ha podido abrir la ventana de inicio de la aplicación");
+
+                    logger.error("Error al cargar la ventana de inicio de la app " + e.fillInStackTrace());
 
                 }
 
             // Si no existe
             } else {
                 Alertas.mostrarError("Error", "El usuario introducido no existe en la base de datos");
+
+                logger.trace("El usuario introducido no existe");
             }
 
         } catch (SQLException throwables) {
 
             Alertas.mostrarError("Error", "Error al validar el usuario");
+
+            logger.error("Error al validar el usuario en la base de datos " + throwables.fillInStackTrace());
 
         }
 
@@ -149,6 +173,8 @@ public class InicioSesionControlador {
             stage.setScene(scene);
             stage.show();
 
+            logger.trace("Se vuelve a la primera ventana de la app (Inicio y registro)");
+
             // Capturo el stage actual para cerrarlo
             Stage myStage = (Stage) this.btValidarInicioSesion.getScene().getWindow();
             myStage.close();
@@ -158,6 +184,8 @@ public class InicioSesionControlador {
         } catch (IOException e) {
 
             Alertas.mostrarError("Error", "No se ha podido abrir la ventana inicial del programa");
+
+            logger.error("Error al cargar la primera ventana de la app");
 
         }
 

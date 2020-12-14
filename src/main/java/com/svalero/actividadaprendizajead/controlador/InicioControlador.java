@@ -9,12 +9,16 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 
 public class InicioControlador {
 
     public Button btIniciarSesion, btRegistrarse;
+
+    private static final Logger logger = LogManager.getLogger(InicioControlador.class);
 
 
 
@@ -37,6 +41,8 @@ public class InicioControlador {
             stage.setScene(scene);
             stage.show();
 
+            logger.trace("Se navega la ventana de iniciar sesión");
+
             // Capturo el stage actual para cerrarlo
             Stage myStage = (Stage) this.btIniciarSesion.getScene().getWindow();
             myStage.close();
@@ -46,6 +52,8 @@ public class InicioControlador {
         } catch (IOException e) {
 
             Alertas.mostrarError("Error", "No se ha podido abrir la ventana de inicio de sesión");
+
+            logger.error("Hay un error al navegar a la ventana de inicio de sesión " + e.fillInStackTrace());
 
         }
 
@@ -71,6 +79,8 @@ public class InicioControlador {
             stage.setScene(scene);
             stage.show();
 
+            logger.trace("Se navega la ventana de registro de nuevo usuario");
+
             // Capturo el stage actual para cerrarlo
             Stage myStage = (Stage) this.btIniciarSesion.getScene().getWindow();
             myStage.close();
@@ -80,6 +90,8 @@ public class InicioControlador {
         } catch (IOException e) {
 
             Alertas.mostrarError("Error", "No se ha podido abrir la ventana de registro");
+
+            logger.error("Hay un error al navegar a la ventana de registro de usuario " + e.fillInStackTrace());
 
         }
 
