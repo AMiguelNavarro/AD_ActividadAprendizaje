@@ -55,3 +55,49 @@
 11:13:30.984 [JavaFX Application Thread] TRACE com.svalero.actividadaprendizajead.controlador.AppControlador - Se intenta recuperar la última moto eliminada de la base de datos, pero no se había eliminado ninguna
 11:13:34.748 [JavaFX Application Thread] TRACE com.svalero.actividadaprendizajead.controlador.AppControlador - Se cancela la operación de eliminar todos los datos de la base de datos
 11:13:47.354 [JavaFX Application Thread] TRACE com.svalero.actividadaprendizajead.controlador.AppControlador - Se exporta la base de datos con las motos correctamente
+11:19:51.050 [JavaFX Application Thread] TRACE com.svalero.actividadaprendizajead.controlador.InicioSesionControlador - Se conecta con la base de datos para iniciar sesión
+11:19:51.291 [JavaFX Application Thread] TRACE com.svalero.actividadaprendizajead.controlador.InicioControlador - Se navega la ventana de iniciar sesión
+11:19:56.949 [JavaFX Application Thread] TRACE com.svalero.actividadaprendizajead.controlador.InicioSesionControlador - El usuario introducido existe, se da paso a la aplicación
+11:19:57.055 [JavaFX Application Thread] TRACE com.svalero.actividadaprendizajead.controlador.AppControlador - Se cargan los datos de la base de datos y se limpian las cajas
+11:19:57.055 [JavaFX Application Thread] TRACE com.svalero.actividadaprendizajead.controlador.AppControlador - Se desactiva el modo edición
+11:19:57.421 [JavaFX Application Thread] TRACE com.svalero.actividadaprendizajead.controlador.InicioSesionControlador - Se carga la ventana de la aplicación
+11:20:04.927 [JavaFX Application Thread] TRACE com.svalero.actividadaprendizajead.controlador.AppControlador - Se cargan los datos de la base de datos y se limpian las cajas
+11:20:04.928 [JavaFX Application Thread] TRACE com.svalero.actividadaprendizajead.controlador.AppControlador - Se eliminan todos los datos de la base de datos
+11:20:10.400 [JavaFX Application Thread] TRACE com.svalero.actividadaprendizajead.controlador.AppControlador - Se pulsa el boton de nueva moto
+11:20:10.404 [JavaFX Application Thread] TRACE com.svalero.actividadaprendizajead.controlador.AppControlador - Se cargan los datos de la base de datos y se limpian las cajas
+11:20:10.405 [JavaFX Application Thread] TRACE com.svalero.actividadaprendizajead.controlador.AppControlador - Se activa el modo edición
+11:20:25.192 [JavaFX Application Thread] TRACE com.svalero.actividadaprendizajead.controlador.AppControlador - Se desactiva el modo edición
+11:20:25.210 [JavaFX Application Thread] TRACE com.svalero.actividadaprendizajead.controlador.AppControlador - Se guarda una NUEVA moto en la base de datos: 7854GHF, Honda, CBF 600 S, SPORT-TURISMO
+11:20:25.219 [JavaFX Application Thread] TRACE com.svalero.actividadaprendizajead.controlador.AppControlador - Se cargan los datos de la base de datos y se limpian las cajas
+11:20:27.935 [JavaFX Application Thread] TRACE com.svalero.actividadaprendizajead.controlador.AppControlador - Se pulsa el boton de nueva moto
+11:20:27.939 [JavaFX Application Thread] TRACE com.svalero.actividadaprendizajead.controlador.AppControlador - Se cargan los datos de la base de datos y se limpian las cajas
+11:20:27.940 [JavaFX Application Thread] TRACE com.svalero.actividadaprendizajead.controlador.AppControlador - Se activa el modo edición
+11:20:42.643 [JavaFX Application Thread] TRACE com.svalero.actividadaprendizajead.controlador.AppControlador - Se desactiva el modo edición
+11:20:42.644 [JavaFX Application Thread] TRACE com.svalero.actividadaprendizajead.controlador.AppControlador - Se guarda una NUEVA moto en la base de datos: 9854KLJ, Triumph, Street Triple, NAKED
+11:20:42.653 [JavaFX Application Thread] TRACE com.svalero.actividadaprendizajead.controlador.AppControlador - Se cargan los datos de la base de datos y se limpian las cajas
+11:20:44.888 [JavaFX Application Thread] TRACE com.svalero.actividadaprendizajead.controlador.AppControlador - Se pulsa el boton de nueva moto
+11:20:44.893 [JavaFX Application Thread] TRACE com.svalero.actividadaprendizajead.controlador.AppControlador - Se cargan los datos de la base de datos y se limpian las cajas
+11:20:44.893 [JavaFX Application Thread] TRACE com.svalero.actividadaprendizajead.controlador.AppControlador - Se activa el modo edición
+11:21:04.295 [JavaFX Application Thread] TRACE com.svalero.actividadaprendizajead.controlador.AppControlador - Error al guardar la moto, el campo matrícula está vacío
+11:21:26.487 [JavaFX Application Thread] TRACE com.svalero.actividadaprendizajead.controlador.AppControlador - Se desactiva el modo edición
+11:21:26.488 [JavaFX Application Thread] TRACE com.svalero.actividadaprendizajead.controlador.AppControlador - Se guarda una NUEVA moto en la base de datos: 7854LKJ, Suzuki, GSR600, DEPORTIVA
+11:21:26.493 [JavaFX Application Thread] TRACE com.svalero.actividadaprendizajead.controlador.AppControlador - Se cargan los datos de la base de datos y se limpian las cajas
+11:21:31.448 [JavaFX Application Thread] TRACE com.svalero.actividadaprendizajead.controlador.AppControlador - Se desactiva el modo edición
+11:21:31.450 [JavaFX Application Thread] TRACE com.svalero.actividadaprendizajead.controlador.AppControlador - Se cargan todas las motos del tipo DEPORTIVA de la base de datos
+11:21:33.504 [JavaFX Application Thread] TRACE com.svalero.actividadaprendizajead.controlador.AppControlador - Se desactiva el modo edición
+11:21:33.541 [JavaFX Application Thread] TRACE com.svalero.actividadaprendizajead.controlador.AppControlador - No hay ningún tipo de moto TRAIL en la base de datos
+11:21:33.545 [JavaFX Application Thread] TRACE com.svalero.actividadaprendizajead.controlador.AppControlador - Se cargan los datos de la base de datos y se limpian las cajas
+11:21:35.503 [JavaFX Application Thread] TRACE com.svalero.actividadaprendizajead.controlador.AppControlador - Se pulsa el boton de nueva moto
+11:21:35.507 [JavaFX Application Thread] TRACE com.svalero.actividadaprendizajead.controlador.AppControlador - Se cargan los datos de la base de datos y se limpian las cajas
+11:21:35.507 [JavaFX Application Thread] TRACE com.svalero.actividadaprendizajead.controlador.AppControlador - Se activa el modo edición
+11:21:51.416 [JavaFX Application Thread] TRACE com.svalero.actividadaprendizajead.controlador.AppControlador - Se desactiva el modo edición
+11:21:51.416 [JavaFX Application Thread] TRACE com.svalero.actividadaprendizajead.controlador.AppControlador - Se guarda una NUEVA moto en la base de datos: 4578HGT, Suzuki, VStrom, TRAIL
+11:21:51.421 [JavaFX Application Thread] TRACE com.svalero.actividadaprendizajead.controlador.AppControlador - Se cargan los datos de la base de datos y se limpian las cajas
+11:21:53.704 [JavaFX Application Thread] TRACE com.svalero.actividadaprendizajead.controlador.AppControlador - Se carga la moto del ListView en los textfields
+11:21:53.705 [JavaFX Application Thread] TRACE com.svalero.actividadaprendizajead.controlador.AppControlador - Se selecciona una moto del listView
+11:21:54.120 [JavaFX Application Thread] TRACE com.svalero.actividadaprendizajead.controlador.AppControlador - Se carga la moto del ListView en los textfields
+11:21:54.120 [JavaFX Application Thread] TRACE com.svalero.actividadaprendizajead.controlador.AppControlador - Se selecciona una moto del listView
+11:21:54.416 [JavaFX Application Thread] TRACE com.svalero.actividadaprendizajead.controlador.AppControlador - Se carga la moto del ListView en los textfields
+11:21:54.417 [JavaFX Application Thread] TRACE com.svalero.actividadaprendizajead.controlador.AppControlador - Se selecciona una moto del listView
+11:21:54.681 [JavaFX Application Thread] TRACE com.svalero.actividadaprendizajead.controlador.AppControlador - Se carga la moto del ListView en los textfields
+11:21:54.681 [JavaFX Application Thread] TRACE com.svalero.actividadaprendizajead.controlador.AppControlador - Se selecciona una moto del listView
